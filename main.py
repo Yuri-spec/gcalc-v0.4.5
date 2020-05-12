@@ -136,13 +136,16 @@ class Groceries(Screen):
         super(Groceries, self).__init__(**kwargs)
         self.groceries = []
 
-        # if Groceries.txt created, insert entries to groceries
-        if os.path.exists(grocery_list):
+        try: # if Groceries.txt created, insert entries to groceries
             with open(grocery_list) as items:
                 for item in items.readlines():
                     if item.strip():
                         self.groceries.append(Grocery(item.strip()))
-
+        except PermissionError:
+            pass
+        except FileNotFoundError:
+            pass
+        
         self.screen_refresh()
 
     def screen_refresh(self):
