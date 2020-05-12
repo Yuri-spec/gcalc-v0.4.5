@@ -16,10 +16,6 @@ grocery_list = '/storage/emulated/0/Groceries.txt'
 
 if platform != 'android':
     grocery_list = os.path.join(os.environ['HOME'], 'Groceries.txt')
-    
-if platform == 'android':
-    from android.permissions import request_permissions, Permission
-    request_permissions([Permission.READ_EXTERNAL_STORAGE])
 
 
 class Grocery:
@@ -149,7 +145,7 @@ class Groceries(Screen):
             pass
         except FileNotFoundError:
             pass
-        
+
         self.screen_refresh()
 
     def screen_refresh(self):
@@ -237,7 +233,10 @@ class Calculator(Screen):
 
         main.screen_refresh()
 
-        
+
+
+
+
 kv = Builder.load_file('my.kv')
 
 # screens
@@ -262,6 +261,10 @@ class GCalcApp(App):
         return sm
 
     def post_build_init(self, instance):
+        if platform == 'android':
+            from android.permissions import request_permissions, Permission
+            request_permissions([Permission.READ_EXTERNAL_STORAGE])
+
         EventLoop.window.bind(on_keyboard=self.exit)
 
     def exit(self, window, key, *args):
