@@ -6,11 +6,9 @@ from kivy.properties import ObjectProperty
 from kivy.utils import platform
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-'''uncheck the following lines when compiling to android:'''
 import os
 import kivy
 kivy.require('1.11.1')
-
 
 grocery_list = '/storage/emulated/0/Groceries.txt'
 
